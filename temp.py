@@ -7,7 +7,7 @@ import time
 #__main__
 def main():
     print("\nTimetable Management System For School\n")
-    time.sleep(1.25)
+    time.sleep(2)
 
     # Ask the users whether they want to create or read a timetable
     user = 1
@@ -72,7 +72,7 @@ def user_verification(verify):
         else:
             return 1
     
-    # Create a temporary password for login
+    # Create a temprory password for login
     else:
         user_id_temp = input("User Id: ")
         if user_id == user_id_temp:
@@ -156,7 +156,7 @@ def get_subject_names(no_of_subjects):
 # Get name of classes
 def get_class_names(no_of_subjects):
     classes_list = []
-    print("\nEnter Name of Class in English Language (i.e. Twelfth, Eleventh, Tenth, etc.)")
+    print("\nEnter Name of Class in English Language (i.e. Twelfth, Eleventh, etc.)")
     time.sleep(1)
     for number in range(no_of_subjects):
         classes = input("Enter Name of Class " + str(number + 1) + ": ")
@@ -230,23 +230,18 @@ def view():
         if access_code == 0:
             choice = 2
             while not choice == 0 and not choice == 1:
-                choice = int(input("\nChoose which timetable you want to see?\n Press 0 for same timetable everyday\n Press 1 for random timetable everyday\n Your Choice: "))             
+                choice = int(input("Choose which timetable you want to see?\n Press 0 for same timetable everyday\n Press 1 for random timetable everyday\n Your Choice: "))
                 if not choice == 0 and not choice == 1:
                     print("You can only choose 0 or 1\n")
             print()
 
-            # Gets class name which is to be read
-            print("\nEnter Name of Class in English Language (i.e. Twelfth, Eleventh, Tenth, etc.)") 
-            time.sleep(1)
-            class_name = input("Enter Class Name: ")  
-
             # Reads CSV files for timetable with same periods everyday
             if choice == 0:
-                read_same_timetable_file(class_name)
+                read_same_timetable_file()
 
             # Reads CSV files for timetable with random periods everyday
             if choice == 1:
-                read_random_timetable_file(class_name)
+                read_random_timetable_file()
             return 0
 
         elif incorrect_code == 3:
@@ -260,32 +255,27 @@ def view():
 
 
 # Reads CSV files for timetable with same periods everyday
-def read_same_timetable_file(class_name):
-    file_name = "timetable_same_" + class_name.capitalize() + ".csv"
-    with open(file_name, "r") as timetables:
+def read_same_timetable_file():
+    with open("timetable_same.csv", "r") as timetables:
         timetables_reader = csv.reader(timetables)
         for rows in timetables_reader:
             print(rows)
-    print()
-
 
 
 
 # Reads CSV files for timetable with random periods everyday
-def read_random_timetable_file(class_name):
-    file_name = "timetable_random_" + class_name.capitalize() + ".csv"
-    with open(file_name, "r") as timetables:
+def read_random_timetable_file():
+    with open("timetable_random.csv", "r") as timetables:
         timetables_reader = csv.reader(timetables)
         for rows in timetables_reader:
             print(rows)
-    print()
 
 
 
 # Gets and Verifies access code for reading functions
 def get_access_code():
     access_code = "1234"
-    access_code_temp = input("\nEnter Access Code: ")
+    access_code_temp = input("Enter Access Code: ")
     if access_code == access_code_temp:
         return 0
     else:
